@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Movies Library</string>
+    <string name="action_insert_dummy_data">Insert Dummy Movie</string>
+    <string name="action_delete_all_entries">Delete All Movies</string>
+    <string name="empty_view_title_text">Feeling Bored...</string>
+    <string name="empty_view_subtitle_text">Get started by adding a Movie</string>
+    <string name="editor_activity_title_new_movies">Add a Movie</string>
+    <string name="editor_activity_title_edit_movies">Edit Movie</string>
+    <string name="action_save">Save</string>
+    <string name="action_delete">Delete</string>
+    <string name="editor_insert_movies_successful">Movie saved</string>
+    <string name="editor_delete_movies_failed">Movie deletion failed</string>
+    <string name="editor_delete_movies_successful">Movie successfully deleted</string>
+    <string name="editor_update_movie_successful">Movie updated</string>
+    <string name="unsaved_changes_dialog_msg">Discard your changes and quit editing?</string>
+    <string name="discard">Discard</string>
+    <string name="keep_editing">Keep Editing</string>
+    <string name="editor_delete_movie_successful">Movie deleted</string>
+    <string name="editor_delete_movie_failed">Error with deleting Movie</string>
+    <string name="delete_dialog_msg">Delete this Movie?</string>
+    <string name="delete">Delete</string>
+    <string name="cancel">Cancel</string>
+    <string name="category_overview">Movie Name</string>
+    <string name="category_gender">Movie Type</string>
+    <string name="hint_movie_name">Name</string>
+    <string name="hint_movie_gender">Type</string>
+    <string name="gender_unknown">Unknown</string>
+    <string name="gender_action">Action</string>
+    <string name="gender_romantic">Romantic</string>
+    <string name="gender_animated">Animated</string>
+    <string name="gender_scifi">Science_Fiction</string>
+</resources>

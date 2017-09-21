@@ -1,0 +1,10 @@
+<resources>
+    <!-- These are the options displayed in the gender drop-down Spinner -->
+    <string-array name="array_gender_options">
+        <item>@string/gender_unknown</item>
+        <item>@string/gender_action</item>
+        <item>@string/gender_romantic</item>
+        <item>@string/gender_animated</item>
+        <item>@string/gender_scifi</item>
+    </string-array>
+</resources>
