@@ -20,6 +20,9 @@ import android.widget.ListView;
 
 import com.example.android.movieslibrary.data.MoviesContract.MoviesEntry;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class CatalogActivity extends AppCompatActivity implements
         LoaderManager.LoaderCallbacks<Cursor> {
 
@@ -64,13 +67,26 @@ public class CatalogActivity extends AppCompatActivity implements
         getLoaderManager().initLoader(MOVIES_LOADER, null, this);
     }
 
+    public HashMap<String, Integer> getDummyMoviesMap(){
+        HashMap<String, Integer> dummyMoviesMap = new HashMap<>();
+
+        dummyMoviesMap.put("Intersteller", MoviesEntry.GENDER_ACTION);
+        dummyMoviesMap.put("Jaws", MoviesEntry.GENDER_ACTION);
+        dummyMoviesMap.put("Toy Story", MoviesEntry.GENDER_ANIMATION);
+        dummyMoviesMap.put("The Matrix", MoviesEntry.GENDER_SCIFI);
+        dummyMoviesMap.put("The Notebook", MoviesEntry.GENDER_ROMANCE);
+        return dummyMoviesMap;
+    }
 
     private void insertMovies() {
-        ContentValues values = new ContentValues();
-        values.put(MoviesEntry.COLUMN_MOVIES_NAME, "Interstellar");
-        values.put(MoviesEntry.COLUMN_MOVIES_GENDER, MoviesEntry.GENDER_ACTION);
+        HashMap<String,Integer> dummyMovieMap = getDummyMoviesMap();
 
-        Uri newUri = getContentResolver().insert(MoviesEntry.CONTENT_URI, values);
+        for (String key : dummyMovieMap.keySet()) {
+            ContentValues values = new ContentValues();
+            values.put(MoviesEntry.COLUMN_MOVIES_NAME, key);
+            values.put(MoviesEntry.COLUMN_MOVIES_GENDER, dummyMovieMap.get(key));
+            getContentResolver().insert(MoviesEntry.CONTENT_URI, values);
+        }
     }
 
     private void deleteAllMovies() {
