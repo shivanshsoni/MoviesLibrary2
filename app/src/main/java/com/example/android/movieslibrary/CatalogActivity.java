@@ -21,7 +21,6 @@ import android.widget.ListView;
 import com.example.android.movieslibrary.data.MoviesContract.MoviesEntry;
 
 import java.util.HashMap;
-import java.util.Map;
 
 public class CatalogActivity extends AppCompatActivity implements
         LoaderManager.LoaderCallbacks<Cursor> {
@@ -73,7 +72,7 @@ public class CatalogActivity extends AppCompatActivity implements
         dummyMoviesMap.put("Intersteller", MoviesEntry.GENDER_ACTION);
         dummyMoviesMap.put("Jaws", MoviesEntry.GENDER_ACTION);
         dummyMoviesMap.put("Toy Story", MoviesEntry.GENDER_ANIMATION);
-        dummyMoviesMap.put("The Matrix", MoviesEntry.GENDER_SCIFI);
+        dummyMoviesMap.put("The Matrix", MoviesEntry.GENDER_SCIENCE_FICTION);
         dummyMoviesMap.put("The Notebook", MoviesEntry.GENDER_ROMANCE);
         return dummyMoviesMap;
     }
