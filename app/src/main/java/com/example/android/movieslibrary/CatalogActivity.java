@@ -69,7 +69,7 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
     public HashMap<String, Integer> getDummyMoviesMap(){
         HashMap<String, Integer> dummyMoviesMap = new HashMap<>();
 
-        dummyMoviesMap.put("Intersteller", MoviesEntry.GENDER_ACTION);
+        dummyMoviesMap.put("Interstellar", MoviesEntry.GENDER_ACTION);
         dummyMoviesMap.put("Jaws", MoviesEntry.GENDER_ACTION);
         dummyMoviesMap.put("Toy Story", MoviesEntry.GENDER_ANIMATION);
         dummyMoviesMap.put("The Matrix", MoviesEntry.GENDER_SCIFI);
