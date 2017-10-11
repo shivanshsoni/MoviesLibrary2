@@ -23,9 +23,7 @@ import com.example.android.movieslibrary.data.MoviesContract.MoviesEntry;
 import java.util.HashMap;
 import java.util.Map;
 
-public class CatalogActivity extends AppCompatActivity implements
-        LoaderManager.LoaderCallbacks<Cursor> {
-
+public class CatalogActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
     private static final int MOVIES_LOADER = 0;
 
     MoviesCursorAdapter mCursorAdapter;
@@ -35,6 +33,7 @@ public class CatalogActivity extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_catalog);
 
+        overridePendingTransition(R.anim.slide_in_right, R.transition.stay_still);
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -125,6 +124,12 @@ public class CatalogActivity extends AppCompatActivity implements
                 null,                   // No selection clause
                 null,                   // No selection arguments
                 null);                  // Default sort order
+    }
+
+    @Override
+    public void onBackPressed(){
+        super.onBackPressed();
+        overridePendingTransition(R.transition.stay_still, R.anim.slide_out_right);
     }
 
     @Override
