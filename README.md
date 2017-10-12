@@ -9,7 +9,6 @@ Once the application is installed select the MoviesLibrary2 from your applicatio
 To add a movie to your watch list click the add icon.  
 ![Adding a movie](app/documentation/examples/welcome.png)  
 
-
 Type in the name of the movie and select a category from the list.  
 ![Assigning movie details](app/documentation/examples/create.png)  
 
