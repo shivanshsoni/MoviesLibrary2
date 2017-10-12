@@ -19,8 +19,11 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.example.android.movieslibrary.data.MoviesContract.MoviesEntry;
+import com.example.android.movieslibrary.model.Movie;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class CatalogActivity extends AppCompatActivity implements
@@ -67,24 +70,27 @@ public class CatalogActivity extends AppCompatActivity implements
         getLoaderManager().initLoader(MOVIES_LOADER, null, this);
     }
 
-    public HashMap<String, Integer> getDummyMoviesMap(){
-        HashMap<String, Integer> dummyMoviesMap = new HashMap<>();
+    public List<Movie> getDummyMoviesMap(){
+		List<Movie> dummyMoviesMap = new ArrayList<>();
 
-        dummyMoviesMap.put("Intersteller", MoviesEntry.GENDER_ACTION);
-        dummyMoviesMap.put("Jaws", MoviesEntry.GENDER_ACTION);
-        dummyMoviesMap.put("Toy Story", MoviesEntry.GENDER_ANIMATION);
-        dummyMoviesMap.put("The Matrix", MoviesEntry.GENDER_SCIFI);
-        dummyMoviesMap.put("The Notebook", MoviesEntry.GENDER_ROMANCE);
+		dummyMoviesMap.add(new Movie("Intersteller", MoviesEntry.GENDER_ACTION));
+		dummyMoviesMap.add(new Movie("Jaws", MoviesEntry.GENDER_ACTION));
+		dummyMoviesMap.add(new Movie("Toy Stor", MoviesEntry.GENDER_ANIMATION));
+		dummyMoviesMap.add(new Movie("The Matrix", MoviesEntry.GENDER_SCIFI));
+		dummyMoviesMap.add(new Movie("The Notebook", MoviesEntry.GENDER_ROMANCE));
+
         return dummyMoviesMap;
     }
 
     private void insertMovies() {
-        HashMap<String,Integer> dummyMovieMap = getDummyMoviesMap();
+		List<Movie> dummyMoviesMap = getDummyMoviesMap();
 
-        for (String key : dummyMovieMap.keySet()) {
+        for (Movie key : dummyMoviesMap) {
             ContentValues values = new ContentValues();
-            values.put(MoviesEntry.COLUMN_MOVIES_NAME, key);
-            values.put(MoviesEntry.COLUMN_MOVIES_GENDER, dummyMovieMap.get(key));
+
+            values.put(MoviesEntry.COLUMN_MOVIES_NAME, key.getName());
+            values.put(MoviesEntry.COLUMN_MOVIES_GENDER, key.getGender());
+
             getContentResolver().insert(MoviesEntry.CONTENT_URI, values);
         }
     }
