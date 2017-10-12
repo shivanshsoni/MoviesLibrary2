@@ -32,12 +32,21 @@ public final class MoviesContract {
 
         public final static String COLUMN_MOVIES_GENDER = "gender";
 
+		public final static String COLUMN_MOVIES_RATING = "rating";
+
         public static final int GENDER_UNKNOWN = 0;
         public static final int GENDER_ACTION = 1;
         public static final int GENDER_ROMANCE = 2;
         public static final int GENDER_ANIMATION = 3;
         public static final int GENDER_SCIFI = 4;
 
+
+		public static final int RATING_UNKNOWN 		= 0;
+		public static final int RATING_VERY_BAD		= 1;
+		public static final int RATING_BAD			= 2;
+		public static final int RATING_GOOD			= 3;
+		public static final int RATING_VERY_GOOD	= 4;
+		public static final int RATING_GREAT		= 5;
 
 
         public static boolean isValidGender(int gender) {
@@ -46,6 +55,10 @@ public final class MoviesContract {
             }
             return false;
         }
+
+        public static boolean isValigRating(int rating) {
+			return rating >= RATING_UNKNOWN && rating <= RATING_GREAT;
+		}
     }
 
 }

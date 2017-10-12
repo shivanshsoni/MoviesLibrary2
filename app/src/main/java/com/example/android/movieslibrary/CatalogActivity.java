@@ -73,11 +73,11 @@ public class CatalogActivity extends AppCompatActivity implements
     public List<Movie> getDummyMoviesMap(){
 		List<Movie> dummyMoviesMap = new ArrayList<>();
 
-		dummyMoviesMap.add(new Movie("Intersteller", MoviesEntry.GENDER_ACTION));
-		dummyMoviesMap.add(new Movie("Jaws", MoviesEntry.GENDER_ACTION));
-		dummyMoviesMap.add(new Movie("Toy Stor", MoviesEntry.GENDER_ANIMATION));
-		dummyMoviesMap.add(new Movie("The Matrix", MoviesEntry.GENDER_SCIFI));
-		dummyMoviesMap.add(new Movie("The Notebook", MoviesEntry.GENDER_ROMANCE));
+		dummyMoviesMap.add(new Movie("Intersteller", MoviesEntry.GENDER_ACTION, MoviesEntry.RATING_BAD));
+		dummyMoviesMap.add(new Movie("Jaws", MoviesEntry.GENDER_ACTION, MoviesEntry.RATING_GOOD));
+		dummyMoviesMap.add(new Movie("Toy Stor", MoviesEntry.GENDER_ANIMATION, MoviesEntry.RATING_VERY_GOOD));
+		dummyMoviesMap.add(new Movie("The Matrix", MoviesEntry.GENDER_SCIFI, MoviesEntry.RATING_GREAT));
+		dummyMoviesMap.add(new Movie("The Notebook", MoviesEntry.GENDER_ROMANCE, MoviesEntry.RATING_VERY_BAD));
 
         return dummyMoviesMap;
     }
@@ -90,6 +90,7 @@ public class CatalogActivity extends AppCompatActivity implements
 
             values.put(MoviesEntry.COLUMN_MOVIES_NAME, key.getName());
             values.put(MoviesEntry.COLUMN_MOVIES_GENDER, key.getGender());
+			values.put(MoviesEntry.COLUMN_MOVIES_RATING, key.getRating());
 
             getContentResolver().insert(MoviesEntry.CONTENT_URI, values);
         }

@@ -8,9 +8,12 @@ public class Movie {
 
 	private String name;
 	private Integer gender;
-	public Movie(String name, Integer gender) {
+	private Integer rating;
+
+	public Movie(String name, Integer gender, Integer rating) {
 		this.name = name;
 		this.gender = gender;
+		this.rating = rating;
 	}
 
 	public String getName() {
@@ -29,4 +32,11 @@ public class Movie {
 		this.gender = gender;
 	}
 
+	public Integer getRating() {
+		return rating;
+	}
+
+	public void setRating(Integer rating) {
+		this.rating = rating;
+	}
 }

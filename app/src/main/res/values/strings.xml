@@ -30,4 +30,5 @@
     <string name="gender_romantic">Romantic</string>
     <string name="gender_animated">Animated</string>
     <string name="gender_scifi">Science_Fiction</string>
+	<string name="rating">Rating</string>
 </resources>
