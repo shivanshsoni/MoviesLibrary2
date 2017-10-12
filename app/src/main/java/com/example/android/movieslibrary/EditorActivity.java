@@ -95,23 +95,12 @@ public class EditorActivity extends AppCompatActivity implements
         mGenderSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
                 String selection = (String) parent.getItemAtPosition(position);
                 if (!TextUtils.isEmpty(selection)) {
-                    if (selection.equals(getString(R.string.gender_action))) {
-                        mGender = MoviesEntry.GENDER_ACTION;
-                    }
-                    else if (selection.equals(getString(R.string.gender_romantic))) {
-                        mGender = MoviesEntry.GENDER_ROMANCE;
-                    }
-                    else if (selection.equals(getString(R.string.gender_animated))) {
-                        mGender = MoviesEntry.GENDER_ANIMATION;
-                    }
-                    else if (selection.equals(getString(R.string.gender_scifi))) {
-                        mGender = MoviesEntry.GENDER_SCIFI;
-                    }
-                    else {
-                        mGender = MoviesEntry.GENDER_UNKNOWN;
-                    }
+                    mGender = position;
+                } else {
+                    mGender = MoviesEntry.GENDER_UNKNOWN;
                 }
             }
 
@@ -260,24 +249,9 @@ public class EditorActivity extends AppCompatActivity implements
 
 			rtbRating.setRating(rating);
 
+            mNameEditText.setText(name);
 
-            switch (gender) {
-                case MoviesEntry.GENDER_ACTION:
-                    mGenderSpinner.setSelection(1);
-                    break;
-                case MoviesEntry.GENDER_ROMANCE:
-                    mGenderSpinner.setSelection(2);
-                    break;
-                case MoviesEntry.GENDER_ANIMATION:
-                    mGenderSpinner.setSelection(3);
-                    break;
-                case MoviesEntry.GENDER_SCIFI:
-                    mGenderSpinner.setSelection(4);
-                    break;
-                default:
-                    mGenderSpinner.setSelection(0);
-                    break;
-            }
+            mGenderSpinner.setSelection(gender);
         }
     }
 

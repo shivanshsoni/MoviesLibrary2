@@ -22,9 +22,7 @@ import com.example.android.movieslibrary.data.MoviesContract.MoviesEntry;
 import com.example.android.movieslibrary.model.Movie;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class CatalogActivity extends AppCompatActivity implements
         LoaderManager.LoaderCallbacks<Cursor> {
