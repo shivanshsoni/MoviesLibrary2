@@ -36,13 +36,15 @@ public class EditorActivity extends AppCompatActivity implements
 
     private EditText mNameEditText;
 
-	private RatingBar rtbRating;
+	  private RatingBar rtbRating;
+
+    private EditText mMovieSummary;
 
     private Spinner mGenderSpinner;
 
 
     private int mGender = MoviesEntry.GENDER_ACTION;
-	private int mRating = MoviesEntry.RATING_UNKNOWN;
+	  private int mRating = MoviesEntry.RATING_UNKNOWN;
 
     private boolean mMoviesHasChanged = false;
 
@@ -73,7 +75,9 @@ public class EditorActivity extends AppCompatActivity implements
         }
         mNameEditText = (EditText) findViewById(R.id.edit_movies_name);
 
-		rtbRating = (RatingBar) findViewById(R.id.rtbRating);
+		    rtbRating = (RatingBar) findViewById(R.id.rtbRating);
+
+        mMovieSummary = (EditText) findViewById(R.id.edit_movies_summary);
 
         mGenderSpinner = (Spinner) findViewById(R.id.spinner_gender);
 
@@ -120,17 +124,20 @@ public class EditorActivity extends AppCompatActivity implements
 
     private void saveMovies() {
         String nameString = mNameEditText.getText().toString().trim();
+        String summaryString = mMovieSummary.getText().toString().trim();
 
 
         if (mCurrentMoviesUri == null &&
-                TextUtils.isEmpty(nameString)  && mGender == MoviesEntry.GENDER_UNKNOWN) {
+                TextUtils.isEmpty(nameString) && TextUtils.isEmpty(summaryString) && mGender == MoviesEntry.GENDER_UNKNOWN) {
             return;
         }
 
         ContentValues values = new ContentValues();
         values.put(MoviesEntry.COLUMN_MOVIES_NAME, nameString);
         values.put(MoviesEntry.COLUMN_MOVIES_GENDER, mGender);
-		values.put(MoviesEntry.COLUMN_MOVIES_RATING, mRating);
+		    values.put(MoviesEntry.COLUMN_MOVIES_RATING, mRating);
+
+        values.put(MoviesEntry.COLUMN_MOVIES_SUMMARY, summaryString);
 
 
         if (mCurrentMoviesUri == null) {
@@ -215,7 +222,8 @@ public class EditorActivity extends AppCompatActivity implements
                 MoviesEntry._ID,
                 MoviesEntry.COLUMN_MOVIES_NAME,
                 MoviesEntry.COLUMN_MOVIES_GENDER,
-				MoviesEntry.COLUMN_MOVIES_RATING};
+				        MoviesEntry.COLUMN_MOVIES_RATING,
+                MoviesEntry.COLUMN_MOVIES_SUMMARY};
 
         return new CursorLoader(this,
                 mCurrentMoviesUri,
@@ -236,18 +244,21 @@ public class EditorActivity extends AppCompatActivity implements
 
             int genderColumnIndex = cursor.getColumnIndex(MoviesEntry.COLUMN_MOVIES_GENDER);
 
-			int ratingColumIndex = cursor.getColumnIndex(MoviesEntry.COLUMN_MOVIES_RATING);
+			      int ratingColumIndex = cursor.getColumnIndex(MoviesEntry.COLUMN_MOVIES_RATING);
 
+            int summaryColumnIndex = cursor.getColumnIndex(MoviesEntry.COLUMN_MOVIES_SUMMARY);
 
             String name = cursor.getString(nameColumnIndex);
 
             int gender = cursor.getInt(genderColumnIndex);
 
-			int rating = cursor.getInt(ratingColumIndex);
+			      int rating = cursor.getInt(ratingColumIndex);
+            String summary = cursor.getString(summaryColumnIndex);
 
+
+			      rtbRating.setRating(rating);
             mNameEditText.setText(name);
-
-			rtbRating.setRating(rating);
+            mMovieSummary.setText(summary);
 
             mNameEditText.setText(name);
 

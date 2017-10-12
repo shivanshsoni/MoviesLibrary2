@@ -82,7 +82,18 @@ public class CatalogActivity extends AppCompatActivity implements
     }
 
     private void insertMovies() {
+<<<<<<< HEAD
 		List<Movie> dummyMoviesMap = getDummyMoviesMap();
+||||||| merged common ancestors
+        ContentValues values = new ContentValues();
+        values.put(MoviesEntry.COLUMN_MOVIES_NAME, "Interstellar");
+        values.put(MoviesEntry.COLUMN_MOVIES_GENDER, MoviesEntry.GENDER_ACTION);
+=======
+        ContentValues values = new ContentValues();
+        values.put(MoviesEntry.COLUMN_MOVIES_NAME, "Interstellar");
+        values.put(MoviesEntry.COLUMN_MOVIES_GENDER, MoviesEntry.GENDER_ACTION);
+        values.put(MoviesEntry.COLUMN_MOVIES_SUMMARY, "This is a great movie about space travel");
+>>>>>>> Added functionality for inserting a summary for each movie
 
         for (Movie key : dummyMoviesMap) {
             ContentValues values = new ContentValues();
