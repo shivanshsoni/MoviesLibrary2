@@ -32,6 +32,8 @@ public final class MoviesContract {
 
         public final static String COLUMN_MOVIES_GENDER = "gender";
 
+        public final static String COLUMN_MOVIES_SUMMARY = "summary";
+
         public static final int GENDER_UNKNOWN = 0;
         public static final int GENDER_ACTION = 1;
         public static final int GENDER_ROMANCE = 2;

@@ -69,6 +69,7 @@ public class CatalogActivity extends AppCompatActivity implements
         ContentValues values = new ContentValues();
         values.put(MoviesEntry.COLUMN_MOVIES_NAME, "Interstellar");
         values.put(MoviesEntry.COLUMN_MOVIES_GENDER, MoviesEntry.GENDER_ACTION);
+        values.put(MoviesEntry.COLUMN_MOVIES_SUMMARY, "This is a great movie about space travel");
 
         Uri newUri = getContentResolver().insert(MoviesEntry.CONTENT_URI, values);
     }

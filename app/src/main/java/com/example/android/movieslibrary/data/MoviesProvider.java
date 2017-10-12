@@ -86,6 +86,11 @@ public class MoviesProvider extends ContentProvider {
             throw new IllegalArgumentException("Movies requires valid gender");
         }
 
+        String summary = values.getAsString(MoviesEntry.COLUMN_MOVIES_SUMMARY);
+        if (summary == null) {
+            throw new IllegalArgumentException("Movies requires a name");
+        }
+
         SQLiteDatabase database = mDbHelper.getWritableDatabase();
 
         long id = database.insert(MoviesEntry.TABLE_NAME, null, values);

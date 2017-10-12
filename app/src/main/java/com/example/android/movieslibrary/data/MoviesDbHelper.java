@@ -23,7 +23,8 @@ public class MoviesDbHelper extends SQLiteOpenHelper {
         String SQL_CREATE_MOVIES_TABLE =  "CREATE TABLE " + MoviesEntry.TABLE_NAME + " ("
                 + MoviesEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + MoviesEntry.COLUMN_MOVIES_NAME + " TEXT NOT NULL, "
-                + MoviesEntry.COLUMN_MOVIES_GENDER + " INTEGER NOT NULL);";
+                + MoviesEntry.COLUMN_MOVIES_GENDER + " INTEGER NOT NULL, "
+                + MoviesEntry.COLUMN_MOVIES_SUMMARY + " TEXT);";
 
         db.execSQL(SQL_CREATE_MOVIES_TABLE);
     }

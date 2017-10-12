@@ -34,6 +34,7 @@ public class EditorActivity extends AppCompatActivity implements
 
     private EditText mNameEditText;
 
+    private EditText mMovieSummary;
 
     private Spinner mGenderSpinner;
 
@@ -68,6 +69,8 @@ public class EditorActivity extends AppCompatActivity implements
             getLoaderManager().initLoader(EXISTING_MOVIES_LOADER, null, this);
         }
         mNameEditText = (EditText) findViewById(R.id.edit_movies_name);
+
+        mMovieSummary = (EditText) findViewById(R.id.edit_movies_summary);
 
         mGenderSpinner = (Spinner) findViewById(R.id.spinner_gender);
 
@@ -118,16 +121,18 @@ public class EditorActivity extends AppCompatActivity implements
 
     private void saveMovies() {
         String nameString = mNameEditText.getText().toString().trim();
+        String summaryString = mMovieSummary.getText().toString().trim();
 
 
         if (mCurrentMoviesUri == null &&
-                TextUtils.isEmpty(nameString)  && mGender == MoviesEntry.GENDER_UNKNOWN) {
+                TextUtils.isEmpty(nameString) && TextUtils.isEmpty(summaryString) && mGender == MoviesEntry.GENDER_UNKNOWN) {
             return;
         }
 
         ContentValues values = new ContentValues();
         values.put(MoviesEntry.COLUMN_MOVIES_NAME, nameString);
         values.put(MoviesEntry.COLUMN_MOVIES_GENDER, mGender);
+        values.put(MoviesEntry.COLUMN_MOVIES_SUMMARY, summaryString);
 
 
 
@@ -212,7 +217,8 @@ public class EditorActivity extends AppCompatActivity implements
         String[] projection = {
                 MoviesEntry._ID,
                 MoviesEntry.COLUMN_MOVIES_NAME,
-                MoviesEntry.COLUMN_MOVIES_GENDER};
+                MoviesEntry.COLUMN_MOVIES_GENDER,
+                MoviesEntry.COLUMN_MOVIES_SUMMARY};
 
         return new CursorLoader(this,
                 mCurrentMoviesUri,
@@ -233,14 +239,18 @@ public class EditorActivity extends AppCompatActivity implements
 
             int genderColumnIndex = cursor.getColumnIndex(MoviesEntry.COLUMN_MOVIES_GENDER);
 
+            int summaryColumnIndex = cursor.getColumnIndex(MoviesEntry.COLUMN_MOVIES_SUMMARY);
+
 
             String name = cursor.getString(nameColumnIndex);
 
             int gender = cursor.getInt(genderColumnIndex);
 
+            String summary = cursor.getString(summaryColumnIndex);
+
 
             mNameEditText.setText(name);
-
+            mMovieSummary.setText(summary);
 
 
             switch (gender) {
