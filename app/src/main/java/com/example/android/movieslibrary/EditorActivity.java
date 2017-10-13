@@ -136,7 +136,6 @@ public class EditorActivity extends AppCompatActivity implements
         values.put(MoviesEntry.COLUMN_MOVIES_NAME, nameString);
         values.put(MoviesEntry.COLUMN_MOVIES_GENDER, mGender);
 		    values.put(MoviesEntry.COLUMN_MOVIES_RATING, mRating);
-
         values.put(MoviesEntry.COLUMN_MOVIES_SUMMARY, summaryString);
 
 
@@ -253,6 +252,7 @@ public class EditorActivity extends AppCompatActivity implements
             int gender = cursor.getInt(genderColumnIndex);
 
 			      int rating = cursor.getInt(ratingColumIndex);
+
             String summary = cursor.getString(summaryColumnIndex);
 
 
@@ -269,7 +269,7 @@ public class EditorActivity extends AppCompatActivity implements
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
         mNameEditText.setText("");
-
+        mMovieSummary.setText("");
         mGenderSpinner.setSelection(0); // Select "Unknown" gender
     }
 

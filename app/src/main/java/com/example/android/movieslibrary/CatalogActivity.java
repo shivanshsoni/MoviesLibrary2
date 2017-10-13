@@ -7,7 +7,6 @@ import android.content.CursorLoader;
 import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
-import android.graphics.Movie;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -82,25 +81,17 @@ public class CatalogActivity extends AppCompatActivity implements
     }
 
     private void insertMovies() {
-<<<<<<< HEAD
-		List<Movie> dummyMoviesMap = getDummyMoviesMap();
-||||||| merged common ancestors
-        ContentValues values = new ContentValues();
-        values.put(MoviesEntry.COLUMN_MOVIES_NAME, "Interstellar");
-        values.put(MoviesEntry.COLUMN_MOVIES_GENDER, MoviesEntry.GENDER_ACTION);
-=======
+		    List<Movie> dummyMoviesMap = getDummyMoviesMap();
         ContentValues values = new ContentValues();
         values.put(MoviesEntry.COLUMN_MOVIES_NAME, "Interstellar");
         values.put(MoviesEntry.COLUMN_MOVIES_GENDER, MoviesEntry.GENDER_ACTION);
         values.put(MoviesEntry.COLUMN_MOVIES_SUMMARY, "This is a great movie about space travel");
->>>>>>> Added functionality for inserting a summary for each movie
 
         for (Movie key : dummyMoviesMap) {
-            ContentValues values = new ContentValues();
 
             values.put(MoviesEntry.COLUMN_MOVIES_NAME, key.getName());
             values.put(MoviesEntry.COLUMN_MOVIES_GENDER, key.getGender());
-			values.put(MoviesEntry.COLUMN_MOVIES_RATING, key.getRating());
+			      values.put(MoviesEntry.COLUMN_MOVIES_RATING, key.getRating());
 
             getContentResolver().insert(MoviesEntry.CONTENT_URI, values);
         }
