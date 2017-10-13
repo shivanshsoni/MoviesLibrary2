@@ -7,6 +7,7 @@ import android.content.CursorLoader;
 import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
+import android.graphics.Movie;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -116,7 +117,8 @@ public class CatalogActivity extends AppCompatActivity implements
     public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
         String[] projection = {
                 MoviesEntry._ID,
-                MoviesEntry.COLUMN_MOVIES_NAME };
+                MoviesEntry.COLUMN_MOVIES_NAME,
+                MoviesEntry.COLUMN_MOVIES_GENDER};
 
         return new CursorLoader(this,   // Parent activity context
                 MoviesEntry.CONTENT_URI,   // Provider content URI to query
