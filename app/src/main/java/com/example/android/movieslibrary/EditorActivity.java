@@ -25,21 +25,14 @@ import android.widget.Toast;
 
 import com.example.android.movieslibrary.data.MoviesContract.MoviesEntry;
 
-public class EditorActivity extends AppCompatActivity implements
-        LoaderManager.LoaderCallbacks<Cursor> {
+public class EditorActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
     private static final int EXISTING_MOVIES_LOADER = 0;
-
     private Uri mCurrentMoviesUri;
-
     private EditText mNameEditText;
 
-
     private Spinner mGenderSpinner;
-
-
     private int mGender = MoviesEntry.GENDER_ACTION;
-
     private boolean mMoviesHasChanged = false;
 
     private View.OnTouchListener mTouchListener = new View.OnTouchListener() {
@@ -63,16 +56,11 @@ public class EditorActivity extends AppCompatActivity implements
 
             invalidateOptionsMenu();
         } else {
-
-
             getLoaderManager().initLoader(EXISTING_MOVIES_LOADER, null, this);
         }
         mNameEditText = (EditText) findViewById(R.id.edit_movies_name);
-
         mGenderSpinner = (Spinner) findViewById(R.id.spinner_gender);
-
         mNameEditText.setOnTouchListener(mTouchListener);
-
         mGenderSpinner.setOnTouchListener(mTouchListener);
 
         setupSpinner();
@@ -110,6 +98,7 @@ public class EditorActivity extends AppCompatActivity implements
             }
 
             @Override
+
             public void onNothingSelected(AdapterView<?> parent) {
                 mGender = MoviesEntry.GENDER_UNKNOWN;
             }
@@ -128,8 +117,6 @@ public class EditorActivity extends AppCompatActivity implements
         ContentValues values = new ContentValues();
         values.put(MoviesEntry.COLUMN_MOVIES_NAME, nameString);
         values.put(MoviesEntry.COLUMN_MOVIES_GENDER, mGender);
-
-
 
         if (mCurrentMoviesUri == null) {
             Uri newUri = getContentResolver().insert(MoviesEntry.CONTENT_URI, values);
