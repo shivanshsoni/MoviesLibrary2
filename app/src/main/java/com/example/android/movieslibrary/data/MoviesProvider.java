@@ -86,6 +86,11 @@ public class MoviesProvider extends ContentProvider {
             throw new IllegalArgumentException("Movies requires valid gender");
         }
 
+		Integer rating = values.getAsInteger(MoviesEntry.COLUMN_MOVIES_RATING);
+		if (rating == null || !MoviesEntry.isValigRating(rating)) {
+			throw new IllegalArgumentException("Movies requires valid rating");
+		}
+
         SQLiteDatabase database = mDbHelper.getWritableDatabase();
 
         long id = database.insert(MoviesEntry.TABLE_NAME, null, values);
