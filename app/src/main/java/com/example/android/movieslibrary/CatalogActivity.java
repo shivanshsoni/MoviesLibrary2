@@ -22,9 +22,7 @@ import com.example.android.movieslibrary.data.MoviesContract.MoviesEntry;
 
 import java.util.HashMap;
 
-public class CatalogActivity extends AppCompatActivity implements
-        LoaderManager.LoaderCallbacks<Cursor> {
-
+public class CatalogActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
     private static final int MOVIES_LOADER = 0;
 
     MoviesCursorAdapter mCursorAdapter;
@@ -34,6 +32,7 @@ public class CatalogActivity extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_catalog);
 
+        overridePendingTransition(R.anim.slide_in_right, R.transition.stay_still);
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,7 +68,7 @@ public class CatalogActivity extends AppCompatActivity implements
     public HashMap<String, Integer> getDummyMoviesMap(){
         HashMap<String, Integer> dummyMoviesMap = new HashMap<>();
 
-        dummyMoviesMap.put("Intersteller", MoviesEntry.GENDER_ACTION);
+        dummyMoviesMap.put("Interstellar", MoviesEntry.GENDER_ACTION);
         dummyMoviesMap.put("Jaws", MoviesEntry.GENDER_ACTION);
         dummyMoviesMap.put("Toy Story", MoviesEntry.GENDER_ANIMATION);
         dummyMoviesMap.put("The Matrix", MoviesEntry.GENDER_SCIENCE_FICTION);
@@ -124,6 +123,12 @@ public class CatalogActivity extends AppCompatActivity implements
                 null,                   // No selection clause
                 null,                   // No selection arguments
                 null);                  // Default sort order
+    }
+
+    @Override
+    public void onBackPressed(){
+        super.onBackPressed();
+        overridePendingTransition(R.transition.stay_still, R.anim.slide_out_right);
     }
 
     @Override
