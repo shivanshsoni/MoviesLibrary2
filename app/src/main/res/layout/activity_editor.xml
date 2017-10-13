@@ -111,7 +111,6 @@
         </LinearLayout>
     </LinearLayout>
 
-
     <LinearLayout
         android:id="@+id/container_measurement"
         android:layout_width="match_parent"

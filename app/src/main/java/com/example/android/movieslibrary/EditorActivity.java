@@ -138,7 +138,6 @@ public class EditorActivity extends AppCompatActivity implements
 		    values.put(MoviesEntry.COLUMN_MOVIES_RATING, mRating);
         values.put(MoviesEntry.COLUMN_MOVIES_SUMMARY, summaryString);
 
-
         if (mCurrentMoviesUri == null) {
             Uri newUri = getContentResolver().insert(MoviesEntry.CONTENT_URI, values);
 
@@ -255,8 +254,7 @@ public class EditorActivity extends AppCompatActivity implements
 
             String summary = cursor.getString(summaryColumnIndex);
 
-
-			      rtbRating.setRating(rating);
+            rtbRating.setRating(rating);
             mNameEditText.setText(name);
             mMovieSummary.setText(summary);
 
