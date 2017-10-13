@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -20,6 +21,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.RatingBar;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -27,9 +29,13 @@ import com.example.android.movieslibrary.data.MoviesContract.MoviesEntry;
 
 public class EditorActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
-    private static final int EXISTING_MOVIES_LOADER = 0;
+	private static final int EXISTING_MOVIES_LOADER = 0;
+
     private Uri mCurrentMoviesUri;
     private EditText mNameEditText;
+
+	private RatingBar rtbRating;
+
 
     private Spinner mGenderSpinner;
     private int mGender = MoviesEntry.GENDER_ACTION;
@@ -59,6 +65,10 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
             getLoaderManager().initLoader(EXISTING_MOVIES_LOADER, null, this);
         }
         mNameEditText = (EditText) findViewById(R.id.edit_movies_name);
+
+		rtbRating = (RatingBar) findViewById(R.id.rtbRating);
+
+
         mGenderSpinner = (Spinner) findViewById(R.id.spinner_gender);
         mNameEditText.setOnTouchListener(mTouchListener);
         mGenderSpinner.setOnTouchListener(mTouchListener);
@@ -92,6 +102,13 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
                 mGender = MoviesEntry.GENDER_UNKNOWN;
             }
         });
+		
+		rtbRating.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+			@Override
+			public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
+				mRating = Math.round(rating);
+			}
+		});
     }
 
     private void saveMovies() {
@@ -106,6 +123,11 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         ContentValues values = new ContentValues();
         values.put(MoviesEntry.COLUMN_MOVIES_NAME, nameString);
         values.put(MoviesEntry.COLUMN_MOVIES_GENDER, mGender);
+<<<<<<< HEAD
+=======
+		values.put(MoviesEntry.COLUMN_MOVIES_RATING, mRating);
+
+>>>>>>> upstream/master
 
         if (mCurrentMoviesUri == null) {
             Uri newUri = getContentResolver().insert(MoviesEntry.CONTENT_URI, values);
@@ -188,7 +210,8 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         String[] projection = {
                 MoviesEntry._ID,
                 MoviesEntry.COLUMN_MOVIES_NAME,
-                MoviesEntry.COLUMN_MOVIES_GENDER};
+                MoviesEntry.COLUMN_MOVIES_GENDER,
+				MoviesEntry.COLUMN_MOVIES_RATING};
 
         return new CursorLoader(this,
                 mCurrentMoviesUri,
@@ -209,14 +232,22 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
 
             int genderColumnIndex = cursor.getColumnIndex(MoviesEntry.COLUMN_MOVIES_GENDER);
 
+			int ratingColumIndex = cursor.getColumnIndex(MoviesEntry.COLUMN_MOVIES_RATING);
+
+
             String name = cursor.getString(nameColumnIndex);
 
             int gender = cursor.getInt(genderColumnIndex);
 
+			int rating = cursor.getInt(ratingColumIndex);
+
+            mNameEditText.setText(name);
+
+			rtbRating.setRating(rating);
+
             mNameEditText.setText(name);
 
             mGenderSpinner.setSelection(gender);
-
         }
     }
 

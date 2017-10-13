@@ -28,6 +28,10 @@
     <string name="gender_unknown">Unknown</string>
     <string name="gender_animation">Animation</string>
     <string name="gender_action">Action</string>
+	<string name="rating">Rating</string>
+    <string name="gender_romantic">Romantic</string>
+    <string name="gender_animated">Animated</string>
+    <string name="gender_scifi">Science_Fiction</string>
     <string name="gender_adventure">Adventure</string>
     <string name="gender_comdey">Comedy</string>
     <string name="gender_crime">Crime</string>

@@ -7,7 +7,6 @@ import android.content.CursorLoader;
 import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
-import android.graphics.Movie;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -18,10 +17,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-
 import com.example.android.movieslibrary.data.MoviesContract.MoviesEntry;
 
-import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CatalogActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
     private static final int MOVIES_LOADER = 0;
@@ -66,24 +65,28 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
         getLoaderManager().initLoader(MOVIES_LOADER, null, this);
     }
 
-    public HashMap<String, Integer> getDummyMoviesMap(){
-        HashMap<String, Integer> dummyMoviesMap = new HashMap<>();
+    public List<com.example.android.movieslibrary.model.Movie> getDummyMoviesMap(){
+		List<com.example.android.movieslibrary.model.Movie> dummyMoviesMap = new ArrayList<>();
 
-        dummyMoviesMap.put("Interstellar", MoviesEntry.GENDER_ACTION);
-        dummyMoviesMap.put("Jaws", MoviesEntry.GENDER_ACTION);
-        dummyMoviesMap.put("Toy Story", MoviesEntry.GENDER_ANIMATION);
-        dummyMoviesMap.put("The Matrix", MoviesEntry.GENDER_SCIENCE_FICTION);
-        dummyMoviesMap.put("The Notebook", MoviesEntry.GENDER_ROMANCE);
+		dummyMoviesMap.add(new com.example.android.movieslibrary.model.Movie("Intersteller", MoviesEntry.GENDER_ACTION, MoviesEntry.RATING_BAD));
+		dummyMoviesMap.add(new com.example.android.movieslibrary.model.Movie("Jaws", MoviesEntry.GENDER_ACTION, MoviesEntry.RATING_GOOD));
+		dummyMoviesMap.add(new com.example.android.movieslibrary.model.Movie("Toy Stor", MoviesEntry.GENDER_ANIMATION, MoviesEntry.RATING_VERY_GOOD));
+		dummyMoviesMap.add(new com.example.android.movieslibrary.model.Movie("The Matrix", MoviesEntry.GENDER_SCIFI, MoviesEntry.RATING_GREAT));
+		dummyMoviesMap.add(new com.example.android.movieslibrary.model.Movie("The Notebook", MoviesEntry.GENDER_ROMANCE, MoviesEntry.RATING_VERY_BAD));
+
         return dummyMoviesMap;
     }
 
     private void insertMovies() {
-        HashMap<String,Integer> dummyMovieMap = getDummyMoviesMap();
+		List<com.example.android.movieslibrary.model.Movie> dummyMoviesMap = getDummyMoviesMap();
 
-        for (String key : dummyMovieMap.keySet()) {
+        for (com.example.android.movieslibrary.model.Movie key : dummyMoviesMap) {
             ContentValues values = new ContentValues();
-            values.put(MoviesEntry.COLUMN_MOVIES_NAME, key);
-            values.put(MoviesEntry.COLUMN_MOVIES_GENDER, dummyMovieMap.get(key));
+
+            values.put(MoviesEntry.COLUMN_MOVIES_NAME, key.getName());
+            values.put(MoviesEntry.COLUMN_MOVIES_GENDER, key.getGender());
+			values.put(MoviesEntry.COLUMN_MOVIES_RATING, key.getRating());
+
             getContentResolver().insert(MoviesEntry.CONTENT_URI, values);
         }
     }
@@ -120,7 +123,7 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
                 MoviesEntry.COLUMN_MOVIES_GENDER};
 
         return new CursorLoader(this,   // Parent activity context
-                MoviesEntry.CONTENT_URI,   // Provider content URI to query
+                MoviesEntry.CONTENT_URI,// Provider content URI to query
                 projection,             // Columns to include in the resulting Cursor
                 null,                   // No selection clause
                 null,                   // No selection arguments
