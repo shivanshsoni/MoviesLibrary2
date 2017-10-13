@@ -25,11 +25,17 @@ public class MoviesCursorAdapter extends CursorAdapter {
     @Override
     public void bindView(View view, Context context, Cursor cursor) {
         TextView nameTextView = (TextView) view.findViewById(R.id.name);
+        TextView genreTextView = (TextView) view.findViewById(R.id.genre);
 
 
         int nameColumnIndex = cursor.getColumnIndex(MoviesEntry.COLUMN_MOVIES_NAME);
+        int genreColumnIndex = cursor.getColumnIndex(MoviesEntry.COLUMN_MOVIES_GENDER);
 
         String MoviesName = cursor.getString(nameColumnIndex);
+        int genreIndex = cursor.getInt(genreColumnIndex);
+
+        String genreName = context.getResources().getStringArray(R.array.array_gender_options)[genreIndex];
         nameTextView.setText(MoviesName);
+        genreTextView.setText(genreName);
     }
 }

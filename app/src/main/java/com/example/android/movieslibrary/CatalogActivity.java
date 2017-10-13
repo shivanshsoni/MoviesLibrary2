@@ -7,6 +7,7 @@ import android.content.CursorLoader;
 import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
+import android.graphics.Movie;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -21,7 +22,6 @@ import android.widget.ListView;
 import com.example.android.movieslibrary.data.MoviesContract.MoviesEntry;
 
 import java.util.HashMap;
-import java.util.Map;
 
 public class CatalogActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
     private static final int MOVIES_LOADER = 0;
@@ -72,7 +72,7 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
         dummyMoviesMap.put("Interstellar", MoviesEntry.GENDER_ACTION);
         dummyMoviesMap.put("Jaws", MoviesEntry.GENDER_ACTION);
         dummyMoviesMap.put("Toy Story", MoviesEntry.GENDER_ANIMATION);
-        dummyMoviesMap.put("The Matrix", MoviesEntry.GENDER_SCIFI);
+        dummyMoviesMap.put("The Matrix", MoviesEntry.GENDER_SCIENCE_FICTION);
         dummyMoviesMap.put("The Notebook", MoviesEntry.GENDER_ROMANCE);
         return dummyMoviesMap;
     }
@@ -116,7 +116,8 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
     public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
         String[] projection = {
                 MoviesEntry._ID,
-                MoviesEntry.COLUMN_MOVIES_NAME };
+                MoviesEntry.COLUMN_MOVIES_NAME,
+                MoviesEntry.COLUMN_MOVIES_GENDER};
 
         return new CursorLoader(this,   // Parent activity context
                 MoviesEntry.CONTENT_URI,   // Provider content URI to query
