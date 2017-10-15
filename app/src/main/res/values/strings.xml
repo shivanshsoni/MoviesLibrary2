@@ -22,8 +22,10 @@
     <string name="delete">Delete</string>
     <string name="cancel">Cancel</string>
     <string name="category_overview">Movie Name</string>
+    <string name="category_summary">Movie Summary</string>
     <string name="category_gender">Movie Type</string>
     <string name="hint_movie_name">Name</string>
+    <string name="hint_movie_summary">Summary</string>
     <string name="hint_movie_gender">Type</string>
     <string name="gender_unknown">Unknown</string>
     <string name="gender_animation">Animation</string>
