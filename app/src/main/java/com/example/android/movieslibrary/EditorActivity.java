@@ -27,22 +27,17 @@ import android.widget.Toast;
 
 import com.example.android.movieslibrary.data.MoviesContract.MoviesEntry;
 
-public class EditorActivity extends AppCompatActivity implements
-        LoaderManager.LoaderCallbacks<Cursor> {
+public class EditorActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
 	private static final int EXISTING_MOVIES_LOADER = 0;
 
     private Uri mCurrentMoviesUri;
-
     private EditText mNameEditText;
 
 	  private RatingBar rtbRating;
 
     private EditText mMovieSummary;
-
     private Spinner mGenderSpinner;
-
-
     private int mGender = MoviesEntry.GENDER_ACTION;
 	  private int mRating = MoviesEntry.RATING_UNKNOWN;
 
@@ -69,8 +64,6 @@ public class EditorActivity extends AppCompatActivity implements
 
             invalidateOptionsMenu();
         } else {
-
-
             getLoaderManager().initLoader(EXISTING_MOVIES_LOADER, null, this);
         }
         mNameEditText = (EditText) findViewById(R.id.edit_movies_name);
@@ -79,10 +72,9 @@ public class EditorActivity extends AppCompatActivity implements
 
         mMovieSummary = (EditText) findViewById(R.id.edit_movies_summary);
 
+
         mGenderSpinner = (Spinner) findViewById(R.id.spinner_gender);
-
         mNameEditText.setOnTouchListener(mTouchListener);
-
         mGenderSpinner.setOnTouchListener(mTouchListener);
 
         setupSpinner();
@@ -109,6 +101,7 @@ public class EditorActivity extends AppCompatActivity implements
             }
 
             @Override
+
             public void onNothingSelected(AdapterView<?> parent) {
                 mGender = MoviesEntry.GENDER_UNKNOWN;
             }
@@ -135,6 +128,8 @@ public class EditorActivity extends AppCompatActivity implements
         ContentValues values = new ContentValues();
         values.put(MoviesEntry.COLUMN_MOVIES_NAME, nameString);
         values.put(MoviesEntry.COLUMN_MOVIES_GENDER, mGender);
+
+		    values.put(MoviesEntry.COLUMN_MOVIES_RATING, mRating);
 		    values.put(MoviesEntry.COLUMN_MOVIES_RATING, mRating);
         values.put(MoviesEntry.COLUMN_MOVIES_SUMMARY, summaryString);
 

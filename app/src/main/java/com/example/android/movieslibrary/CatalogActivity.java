@@ -17,16 +17,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-
 import com.example.android.movieslibrary.data.MoviesContract.MoviesEntry;
-import com.example.android.movieslibrary.model.Movie;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class CatalogActivity extends AppCompatActivity implements
-        LoaderManager.LoaderCallbacks<Cursor> {
-
+public class CatalogActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
     private static final int MOVIES_LOADER = 0;
 
     MoviesCursorAdapter mCursorAdapter;
@@ -36,6 +32,7 @@ public class CatalogActivity extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_catalog);
 
+        overridePendingTransition(R.anim.slide_in_right, R.transition.stay_still);
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,19 +65,23 @@ public class CatalogActivity extends AppCompatActivity implements
         getLoaderManager().initLoader(MOVIES_LOADER, null, this);
     }
 
-    public List<Movie> getDummyMoviesMap(){
-		List<Movie> dummyMoviesMap = new ArrayList<>();
+    public List<com.example.android.movieslibrary.model.Movie> getDummyMoviesMap(){
+		List<com.example.android.movieslibrary.model.Movie> dummyMoviesMap = new ArrayList<>();
 
-		dummyMoviesMap.add(new Movie("Intersteller", MoviesEntry.GENDER_ACTION, MoviesEntry.RATING_BAD));
-		dummyMoviesMap.add(new Movie("Jaws", MoviesEntry.GENDER_ACTION, MoviesEntry.RATING_GOOD));
-		dummyMoviesMap.add(new Movie("Toy Stor", MoviesEntry.GENDER_ANIMATION, MoviesEntry.RATING_VERY_GOOD));
-		dummyMoviesMap.add(new Movie("The Matrix", MoviesEntry.GENDER_SCIFI, MoviesEntry.RATING_GREAT));
-		dummyMoviesMap.add(new Movie("The Notebook", MoviesEntry.GENDER_ROMANCE, MoviesEntry.RATING_VERY_BAD));
+		dummyMoviesMap.add(new com.example.android.movieslibrary.model.Movie("Intersteller", MoviesEntry.GENDER_ACTION, MoviesEntry.RATING_BAD));
+		dummyMoviesMap.add(new com.example.android.movieslibrary.model.Movie("Jaws", MoviesEntry.GENDER_ACTION, MoviesEntry.RATING_GOOD));
+		dummyMoviesMap.add(new com.example.android.movieslibrary.model.Movie("Toy Stor", MoviesEntry.GENDER_ANIMATION, MoviesEntry.RATING_VERY_GOOD));
+		dummyMoviesMap.add(new com.example.android.movieslibrary.model.Movie("The Matrix", MoviesEntry.GENDER_SCIFI, MoviesEntry.RATING_GREAT));
+		dummyMoviesMap.add(new com.example.android.movieslibrary.model.Movie("The Notebook", MoviesEntry.GENDER_ROMANCE, MoviesEntry.RATING_VERY_BAD));
 
         return dummyMoviesMap;
     }
 
     private void insertMovies() {
+		List<com.example.android.movieslibrary.model.Movie> dummyMoviesMap = getDummyMoviesMap();
+
+        for (com.example.android.movieslibrary.model.Movie key : dummyMoviesMap) {
+            ContentValues values = new ContentValues();
 		    List<Movie> dummyMoviesMap = getDummyMoviesMap();
         ContentValues values = new ContentValues();
         values.put(MoviesEntry.COLUMN_MOVIES_NAME, "Interstellar");
@@ -88,11 +89,9 @@ public class CatalogActivity extends AppCompatActivity implements
         values.put(MoviesEntry.COLUMN_MOVIES_SUMMARY, "This is a great movie about space travel");
 
         for (Movie key : dummyMoviesMap) {
-
             values.put(MoviesEntry.COLUMN_MOVIES_NAME, key.getName());
             values.put(MoviesEntry.COLUMN_MOVIES_GENDER, key.getGender());
 			      values.put(MoviesEntry.COLUMN_MOVIES_RATING, key.getRating());
-
             getContentResolver().insert(MoviesEntry.CONTENT_URI, values);
         }
     }
@@ -129,11 +128,17 @@ public class CatalogActivity extends AppCompatActivity implements
                 MoviesEntry.COLUMN_MOVIES_GENDER};
 
         return new CursorLoader(this,   // Parent activity context
-                MoviesEntry.CONTENT_URI,   // Provider content URI to query
+                MoviesEntry.CONTENT_URI,// Provider content URI to query
                 projection,             // Columns to include in the resulting Cursor
                 null,                   // No selection clause
                 null,                   // No selection arguments
                 null);                  // Default sort order
+    }
+
+    @Override
+    public void onBackPressed(){
+        super.onBackPressed();
+        overridePendingTransition(R.transition.stay_still, R.anim.slide_out_right);
     }
 
     @Override
