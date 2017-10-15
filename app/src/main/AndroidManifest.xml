@@ -25,6 +25,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".CatalogActivity" />
         </activity>
+        <activity
+          android:name=".MovieDetailActivity"
+          android:theme="@style/EditorTheme"
+          android:parentActivityName=".CatalogActivity" >
+            <meta-data
+              android:name="android.support.PARENT_ACTIVITY"
+              android:value=".CatalogActivity" />
+        </activity>
         <provider
             android:name=".data.MoviesProvider"
             android:authorities="com.example.android.movieslibrary"
