@@ -84,8 +84,34 @@
 		</LinearLayout>
 	</LinearLayout>
 
+    <LinearLayout
+      android:id="@+id/summary_container"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="horizontal">
 
-	<LinearLayout
+        <TextView
+          android:text="@string/category_summary"
+          style="@style/CategoryStyle" />
+
+        <LinearLayout
+          android:layout_height="wrap_content"
+          android:layout_width="0dp"
+          android:layout_weight="2"
+          android:paddingLeft="4dp"
+          android:orientation="vertical">
+
+            <EditText
+              android:id="@+id/edit_movies_summary"
+              android:hint="@string/hint_movie_summary"
+              android:inputType="textCapWords|textMultiLine"
+              android:maxLength="2000"
+              style="@style/EditorFieldStyle" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
         android:id="@+id/container_measurement"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

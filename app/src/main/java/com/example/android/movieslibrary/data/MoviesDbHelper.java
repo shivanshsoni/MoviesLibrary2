@@ -24,7 +24,8 @@ public class MoviesDbHelper extends SQLiteOpenHelper {
                 + MoviesEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + MoviesEntry.COLUMN_MOVIES_NAME + " TEXT NOT NULL, "
                 + MoviesEntry.COLUMN_MOVIES_GENDER + " INTEGER NOT NULL, "
-				+ MoviesEntry.COLUMN_MOVIES_RATING + " INTEGER NOT NULL);";
+				        + MoviesEntry.COLUMN_MOVIES_RATING + " INTEGER NOT NULL, "
+                + MoviesEntry.COLUMN_MOVIES_SUMMARY + " TEXT);";
 
         db.execSQL(SQL_CREATE_MOVIES_TABLE);
     }

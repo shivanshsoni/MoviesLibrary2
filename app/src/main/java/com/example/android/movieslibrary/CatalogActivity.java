@@ -82,11 +82,16 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
 
         for (com.example.android.movieslibrary.model.Movie key : dummyMoviesMap) {
             ContentValues values = new ContentValues();
+		    List<Movie> dummyMoviesMap = getDummyMoviesMap();
+        ContentValues values = new ContentValues();
+        values.put(MoviesEntry.COLUMN_MOVIES_NAME, "Interstellar");
+        values.put(MoviesEntry.COLUMN_MOVIES_GENDER, MoviesEntry.GENDER_ACTION);
+        values.put(MoviesEntry.COLUMN_MOVIES_SUMMARY, "This is a great movie about space travel");
 
+        for (Movie key : dummyMoviesMap) {
             values.put(MoviesEntry.COLUMN_MOVIES_NAME, key.getName());
             values.put(MoviesEntry.COLUMN_MOVIES_GENDER, key.getGender());
-			values.put(MoviesEntry.COLUMN_MOVIES_RATING, key.getRating());
-
+			      values.put(MoviesEntry.COLUMN_MOVIES_RATING, key.getRating());
             getContentResolver().insert(MoviesEntry.CONTENT_URI, values);
         }
     }
