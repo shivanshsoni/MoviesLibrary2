@@ -1,31 +1,31 @@
 <resources>
     <!-- These are the options displayed in the gender drop-down Spinner -->
-    <string-array name="array_gender_options">
-        <item>@string/gender_unknown</item>
-        <item>@string/gender_animation</item>
-        <item>@string/gender_action</item>
-        <item>@string/gender_adventure</item>
-        <item>@string/gender_comdey</item>
-        <item>@string/gender_crime</item>
-        <item>@string/gender_drama</item>
-        <item>@string/gender_fantasy</item>
-        <item>@string/gender_historical</item>
-        <item>@string/gender_historical_fiction</item>
-        <item>@string/gender_horror</item>
-        <item>@string/gender_magical_realism</item>
-        <item>@string/gender_mystery</item>
-        <item>@string/gender_paranoid</item>
-        <item>@string/gender_philosophical</item>
-        <item>@string/gender_political</item>
-        <item>@string/gender_romance</item>
-        <item>@string/gender_saga</item>
-        <item>@string/gender_satire</item>
-        <item>@string/gender_science_fiction</item>
-        <item>@string/gender_slice_of_Life</item>
-        <item>@string/gender_speculative</item>
-        <item>@string/gender_surreal</item>
-        <item>@string/gender_thriller</item>
-        <item>@string/gender_urban</item>
-        <item>@string/gender_western</item>
+    <string-array name="array_genre_options">
+        <item>@string/genre_unknown</item>
+        <item>@string/genre_action</item>
+        <item>@string/genre_adventure</item>
+        <item>@string/genre_animation</item>
+        <item>@string/genre_comedy</item>
+        <item>@string/genre_crime</item>
+        <item>@string/genre_drama</item>
+        <item>@string/genre_fantasy</item>
+        <item>@string/genre_historical</item>
+        <item>@string/genre_historical_fiction</item>
+        <item>@string/genre_horror</item>
+        <item>@string/genre_magical_realism</item>
+        <item>@string/genre_mystery</item>
+        <item>@string/genre_paranoid</item>
+        <item>@string/genre_philosophical</item>
+        <item>@string/genre_political</item>
+        <item>@string/genre_romance</item>
+        <item>@string/genre_saga</item>
+        <item>@string/genre_satire</item>
+        <item>@string/genre_science_fiction</item>
+        <item>@string/genre_slice_of_Life</item>
+        <item>@string/genre_speculative</item>
+        <item>@string/genre_surreal</item>
+        <item>@string/genre_thriller</item>
+        <item>@string/genre_urban</item>
+        <item>@string/genre_western</item>
     </string-array>
 </resources>

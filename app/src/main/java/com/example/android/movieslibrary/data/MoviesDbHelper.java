@@ -12,7 +12,7 @@ public class MoviesDbHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "shelter.db";
 
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
 
     public MoviesDbHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -20,11 +20,11 @@ public class MoviesDbHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String SQL_CREATE_MOVIES_TABLE =  "CREATE TABLE " + MoviesEntry.TABLE_NAME + " ("
+        String SQL_CREATE_MOVIES_TABLE = "CREATE TABLE " + MoviesEntry.TABLE_NAME + " ("
                 + MoviesEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + MoviesEntry.COLUMN_MOVIES_NAME + " TEXT NOT NULL, "
-                + MoviesEntry.COLUMN_MOVIES_GENDER + " INTEGER NOT NULL, "
-				        + MoviesEntry.COLUMN_MOVIES_RATING + " INTEGER NOT NULL, "
+                + MoviesEntry.COLUMN_MOVIES_GENRE + " INTEGER NOT NULL, "
+                + MoviesEntry.COLUMN_MOVIES_RATING + " INTEGER NOT NULL, "
                 + MoviesEntry.COLUMN_MOVIES_SUMMARY + " TEXT);";
 
         db.execSQL(SQL_CREATE_MOVIES_TABLE);
@@ -32,6 +32,11 @@ public class MoviesDbHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        // The database is still at version 1, so there's nothing to do be done here.
+        String upgradeQueryRating = "ALTER TABLE " + MoviesEntry.TABLE_NAME + " ADD COLUMN " + MoviesEntry.COLUMN_MOVIES_RATING + " INTEGER NOT NULL DEFAULT 0";
+        String upgradeQuerySummary = "ALTER TABLE " + MoviesEntry.TABLE_NAME + " ADD COLUMN " + MoviesEntry.COLUMN_MOVIES_SUMMARY+ " TEXT";
+        if (oldVersion == 1 && newVersion == 2) {
+            db.execSQL(upgradeQueryRating);
+            db.execSQL(upgradeQuerySummary);
+        }
     }
 }

@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".CatalogActivity"
+            android:name=".activities.CatalogActivity"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -18,21 +18,14 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".EditorActivity"
+            android:name=".activities.EditorActivity"
             android:theme="@style/EditorTheme"
-            android:parentActivityName=".CatalogActivity" >
+            android:parentActivityName=".activities.CatalogActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".CatalogActivity" />
+                android:value=".activities.CatalogActivity" />
         </activity>
-        <activity
-          android:name=".MovieDetailActivity"
-          android:theme="@style/EditorTheme"
-          android:parentActivityName=".CatalogActivity" >
-            <meta-data
-              android:name="android.support.PARENT_ACTIVITY"
-              android:value=".CatalogActivity" />
-        </activity>
+
         <provider
             android:name=".data.MoviesProvider"
             android:authorities="com.example.android.movieslibrary"

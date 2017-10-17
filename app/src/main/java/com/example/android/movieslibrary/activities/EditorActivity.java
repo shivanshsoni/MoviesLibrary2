@@ -1,4 +1,4 @@
-package com.example.android.movieslibrary;
+package com.example.android.movieslibrary.activities;
 
 import android.app.AlertDialog;
 import android.app.LoaderManager;
@@ -10,41 +10,45 @@ import android.content.Loader;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.RatingBar;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.example.android.movieslibrary.R;
 import com.example.android.movieslibrary.data.MoviesContract.MoviesEntry;
+
+import static com.example.android.movieslibrary.activities.CatalogActivity.KEY_ADD_NEW;
 
 public class EditorActivity extends AppCompatActivity implements
         LoaderManager.LoaderCallbacks<Cursor> {
 
-	private static final int EXISTING_MOVIES_LOADER = 0;
+    private static final int EXISTING_MOVIES_LOADER = 0;
 
     private Uri mCurrentMoviesUri;
 
-    private EditText mNameEditText;
+    private TextInputLayout mNameEditText;
 
-	  private RatingBar rtbRating;
+    private RatingBar rtbRating;
 
-    private EditText mMovieSummary;
+    private TextInputLayout mMovieSummary;
 
-    private Spinner mGenderSpinner;
+    private Spinner mGenreSpinner;
+
+    private boolean editable = false;
 
 
-    private int mGender = MoviesEntry.GENDER_ACTION;
-	  private int mRating = MoviesEntry.RATING_UNKNOWN;
+    private int mGender = MoviesEntry.GENRE_ACTION;
+    private int mRating = MoviesEntry.RATING_UNKNOWN;
 
     private boolean mMoviesHasChanged = false;
 
@@ -73,30 +77,35 @@ public class EditorActivity extends AppCompatActivity implements
 
             getLoaderManager().initLoader(EXISTING_MOVIES_LOADER, null, this);
         }
-        mNameEditText = (EditText) findViewById(R.id.edit_movies_name);
+        mNameEditText = findViewById(R.id.edit_movies_name);
 
-		    rtbRating = (RatingBar) findViewById(R.id.rtbRating);
+        rtbRating = findViewById(R.id.rtbRating);
 
-        mMovieSummary = (EditText) findViewById(R.id.edit_movies_summary);
+        mMovieSummary = findViewById(R.id.edit_movies_summary);
 
-        mGenderSpinner = (Spinner) findViewById(R.id.spinner_gender);
+        mGenreSpinner = findViewById(R.id.spinner_genre);
+
+        if (intent.getBooleanExtra(KEY_ADD_NEW, false)) {
+            editable = true;
+            changeEditableState();
+        }
 
         mNameEditText.setOnTouchListener(mTouchListener);
 
-        mGenderSpinner.setOnTouchListener(mTouchListener);
+        mGenreSpinner.setOnTouchListener(mTouchListener);
 
         setupSpinner();
     }
 
     private void setupSpinner() {
         ArrayAdapter genderSpinnerAdapter = ArrayAdapter.createFromResource(this,
-                R.array.array_gender_options, android.R.layout.simple_spinner_item);
+                R.array.array_genre_options, android.R.layout.simple_spinner_item);
 
         genderSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
 
-        mGenderSpinner.setAdapter(genderSpinnerAdapter);
+        mGenreSpinner.setAdapter(genderSpinnerAdapter);
 
-        mGenderSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        mGenreSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
@@ -104,38 +113,38 @@ public class EditorActivity extends AppCompatActivity implements
                 if (!TextUtils.isEmpty(selection)) {
                     mGender = position;
                 } else {
-                    mGender = MoviesEntry.GENDER_UNKNOWN;
+                    mGender = MoviesEntry.GENRE_UNKNOWN;
                 }
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                mGender = MoviesEntry.GENDER_UNKNOWN;
+                mGender = MoviesEntry.GENRE_UNKNOWN;
             }
         });
-		
-		rtbRating.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
-			@Override
-			public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
-				mRating = Math.round(rating);
-			}
-		});
+
+        rtbRating.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+            @Override
+            public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
+                mRating = Math.round(rating);
+            }
+        });
     }
 
     private void saveMovies() {
-        String nameString = mNameEditText.getText().toString().trim();
-        String summaryString = mMovieSummary.getText().toString().trim();
+        String nameString = mNameEditText.getEditText().getText().toString().trim();
+        String summaryString = mMovieSummary.getEditText().getText().toString().trim();
 
 
         if (mCurrentMoviesUri == null &&
-                TextUtils.isEmpty(nameString) && TextUtils.isEmpty(summaryString) && mGender == MoviesEntry.GENDER_UNKNOWN) {
+                TextUtils.isEmpty(nameString) && TextUtils.isEmpty(summaryString) && mGender == MoviesEntry.GENRE_UNKNOWN) {
             return;
         }
 
         ContentValues values = new ContentValues();
         values.put(MoviesEntry.COLUMN_MOVIES_NAME, nameString);
-        values.put(MoviesEntry.COLUMN_MOVIES_GENDER, mGender);
-		    values.put(MoviesEntry.COLUMN_MOVIES_RATING, mRating);
+        values.put(MoviesEntry.COLUMN_MOVIES_GENRE, mGender);
+        values.put(MoviesEntry.COLUMN_MOVIES_RATING, mRating);
         values.put(MoviesEntry.COLUMN_MOVIES_SUMMARY, summaryString);
 
         if (mCurrentMoviesUri == null) {
@@ -157,12 +166,17 @@ public class EditorActivity extends AppCompatActivity implements
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-        super.onPrepareOptionsMenu(menu);
+        changeEditableState();
+        MenuItem editMenuItem = menu.findItem(R.id.action_edit);
+        MenuItem deleteMenuItem = menu.findItem(R.id.action_delete);
+        MenuItem saveMenuItem = menu.findItem(R.id.action_save);
+        editMenuItem.setVisible(!editable);
+        deleteMenuItem.setVisible(editable);
+        saveMenuItem.setVisible(editable);
         if (mCurrentMoviesUri == null) {
-            MenuItem menuItem = menu.findItem(R.id.action_delete);
-            menuItem.setVisible(false);
+            deleteMenuItem.setVisible(false);
         }
-        return true;
+        return super.onPrepareOptionsMenu(menu);
     }
 
     @Override
@@ -174,6 +188,10 @@ public class EditorActivity extends AppCompatActivity implements
                 return true;
             case R.id.action_delete:
                 showDeleteConfirmationDialog();
+                return true;
+            case R.id.action_edit:
+                editable = !editable;
+                changeEditableState();
                 return true;
             case android.R.id.home:
                 if (!mMoviesHasChanged) {
@@ -193,6 +211,14 @@ public class EditorActivity extends AppCompatActivity implements
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void changeEditableState() {
+        mNameEditText.getEditText().setEnabled(editable);
+        mMovieSummary.getEditText().setEnabled(editable);
+        rtbRating.setIsIndicator(!editable);
+        mGenreSpinner.setEnabled(editable);
+        invalidateOptionsMenu();
     }
 
     @Override
@@ -219,8 +245,8 @@ public class EditorActivity extends AppCompatActivity implements
         String[] projection = {
                 MoviesEntry._ID,
                 MoviesEntry.COLUMN_MOVIES_NAME,
-                MoviesEntry.COLUMN_MOVIES_GENDER,
-				        MoviesEntry.COLUMN_MOVIES_RATING,
+                MoviesEntry.COLUMN_MOVIES_GENRE,
+                MoviesEntry.COLUMN_MOVIES_RATING,
                 MoviesEntry.COLUMN_MOVIES_SUMMARY};
 
         return new CursorLoader(this,
@@ -240,9 +266,9 @@ public class EditorActivity extends AppCompatActivity implements
         if (cursor.moveToFirst()) {
             int nameColumnIndex = cursor.getColumnIndex(MoviesEntry.COLUMN_MOVIES_NAME);
 
-            int genderColumnIndex = cursor.getColumnIndex(MoviesEntry.COLUMN_MOVIES_GENDER);
+            int genderColumnIndex = cursor.getColumnIndex(MoviesEntry.COLUMN_MOVIES_GENRE);
 
-			      int ratingColumIndex = cursor.getColumnIndex(MoviesEntry.COLUMN_MOVIES_RATING);
+            int ratingColumIndex = cursor.getColumnIndex(MoviesEntry.COLUMN_MOVIES_RATING);
 
             int summaryColumnIndex = cursor.getColumnIndex(MoviesEntry.COLUMN_MOVIES_SUMMARY);
 
@@ -250,25 +276,25 @@ public class EditorActivity extends AppCompatActivity implements
 
             int gender = cursor.getInt(genderColumnIndex);
 
-			      int rating = cursor.getInt(ratingColumIndex);
+            int rating = cursor.getInt(ratingColumIndex);
 
             String summary = cursor.getString(summaryColumnIndex);
 
             rtbRating.setRating(rating);
-            mNameEditText.setText(name);
-            mMovieSummary.setText(summary);
+            mNameEditText.getEditText().setText(name);
+            mMovieSummary.getEditText().setText(summary);
 
-            mNameEditText.setText(name);
+            mNameEditText.getEditText().setText(name);
 
-            mGenderSpinner.setSelection(gender);
+            mGenreSpinner.setSelection(gender);
         }
     }
 
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
-        mNameEditText.setText("");
-        mMovieSummary.setText("");
-        mGenderSpinner.setSelection(0); // Select "Unknown" gender
+        mNameEditText.getEditText().setText("");
+        mMovieSummary.getEditText().setText("");
+        mGenreSpinner.setSelection(0); // Select "Unknown" gender
     }
 
     private void showUnsavedChangesDialog(
