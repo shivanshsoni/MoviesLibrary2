@@ -22,5 +22,5 @@ After you have added the movie you will be returned to the home screen(your movi
 You can view, modify or delete a movie by selecting it from the list.  
 To edit the movie simply change the details and select the save checkmark once more.  
 
-To delete a movie select delete from the menu located in the upper right corner of the application.  
+To delete a movie , select delete from the menu located in the upper right corner of the application.  
 ![Viewing, editing and deleting a movie](app/documentation/examples/delete.png)  
