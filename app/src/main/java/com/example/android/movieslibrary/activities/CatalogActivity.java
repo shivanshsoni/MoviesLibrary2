@@ -1,4 +1,4 @@
-package com.example.android.movieslibrary;
+package com.example.android.movieslibrary.activities;
 
 import android.app.LoaderManager;
 import android.content.ContentUris;
@@ -18,6 +18,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.example.android.movieslibrary.R;
+import com.example.android.movieslibrary.adapters.MoviesCursorAdapter;
 import com.example.android.movieslibrary.data.MoviesContract.MoviesEntry;
 import com.example.android.movieslibrary.model.Movie;
 
@@ -28,6 +30,7 @@ public class CatalogActivity extends AppCompatActivity implements
         LoaderManager.LoaderCallbacks<Cursor> {
 
     private static final int MOVIES_LOADER = 0;
+    public static final String KEY_ADD_NEW = "add_new";
 
     MoviesCursorAdapter mCursorAdapter;
 
@@ -36,16 +39,17 @@ public class CatalogActivity extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_catalog);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(CatalogActivity.this, EditorActivity.class);
+                Intent intent = new Intent(CatalogActivity.this, EditorActivity.class)
+                        .putExtra(KEY_ADD_NEW, true);
                 startActivity(intent);
             }
         });
 
-        ListView moviesListView = (ListView) findViewById(R.id.list);
+        ListView moviesListView = findViewById(R.id.list);
 
         View emptyView = findViewById(R.id.empty_view);
         moviesListView.setEmptyView(emptyView);
@@ -68,30 +72,32 @@ public class CatalogActivity extends AppCompatActivity implements
         getLoaderManager().initLoader(MOVIES_LOADER, null, this);
     }
 
-    public List<Movie> getDummyMoviesMap(){
-		List<Movie> dummyMoviesMap = new ArrayList<>();
+    public List<Movie> getDummyMoviesMap() {
+        List<Movie> dummyMoviesMap = new ArrayList<>();
 
-		dummyMoviesMap.add(new Movie("Intersteller", MoviesEntry.GENDER_ACTION, MoviesEntry.RATING_BAD));
-		dummyMoviesMap.add(new Movie("Jaws", MoviesEntry.GENDER_ACTION, MoviesEntry.RATING_GOOD));
-		dummyMoviesMap.add(new Movie("Toy Stor", MoviesEntry.GENDER_ANIMATION, MoviesEntry.RATING_VERY_GOOD));
-		dummyMoviesMap.add(new Movie("The Matrix", MoviesEntry.GENDER_SCIFI, MoviesEntry.RATING_GREAT));
-		dummyMoviesMap.add(new Movie("The Notebook", MoviesEntry.GENDER_ROMANCE, MoviesEntry.RATING_VERY_BAD));
+        // Realistic ratings, arranged in increasing orderd
+        dummyMoviesMap.add(new Movie("Star Wars - The Last Jedi", MoviesEntry.GENRE_SCIENCE_FICTION, MoviesEntry.RATING_UNKNOWN));
+        dummyMoviesMap.add(new Movie("The Notebook", MoviesEntry.GENRE_ROMANCE, MoviesEntry.RATING_VERY_BAD));
+        dummyMoviesMap.add(new Movie("Jaws", MoviesEntry.GENRE_ACTION, MoviesEntry.RATING_BAD));
+        dummyMoviesMap.add(new Movie("Toy Story", MoviesEntry.GENRE_ANIMATION, MoviesEntry.RATING_GOOD));
+        dummyMoviesMap.add(new Movie("The Matrix", MoviesEntry.GENRE_SCIENCE_FICTION, MoviesEntry.RATING_VERY_GOOD));
+        dummyMoviesMap.add(new Movie("Interstellar", MoviesEntry.GENRE_ACTION, MoviesEntry.RATING_GREAT));
 
         return dummyMoviesMap;
     }
 
     private void insertMovies() {
-		    List<Movie> dummyMoviesMap = getDummyMoviesMap();
+        List<Movie> dummyMoviesMap = getDummyMoviesMap();
         ContentValues values = new ContentValues();
         values.put(MoviesEntry.COLUMN_MOVIES_NAME, "Interstellar");
-        values.put(MoviesEntry.COLUMN_MOVIES_GENDER, MoviesEntry.GENDER_ACTION);
+        values.put(MoviesEntry.COLUMN_MOVIES_GENRE, MoviesEntry.GENRE_ACTION);
         values.put(MoviesEntry.COLUMN_MOVIES_SUMMARY, "This is a great movie about space travel");
 
         for (Movie key : dummyMoviesMap) {
 
             values.put(MoviesEntry.COLUMN_MOVIES_NAME, key.getName());
-            values.put(MoviesEntry.COLUMN_MOVIES_GENDER, key.getGender());
-			      values.put(MoviesEntry.COLUMN_MOVIES_RATING, key.getRating());
+            values.put(MoviesEntry.COLUMN_MOVIES_GENRE, key.getGender());
+            values.put(MoviesEntry.COLUMN_MOVIES_RATING, key.getRating());
 
             getContentResolver().insert(MoviesEntry.CONTENT_URI, values);
         }
@@ -126,7 +132,7 @@ public class CatalogActivity extends AppCompatActivity implements
         String[] projection = {
                 MoviesEntry._ID,
                 MoviesEntry.COLUMN_MOVIES_NAME,
-                MoviesEntry.COLUMN_MOVIES_GENDER,
+                MoviesEntry.COLUMN_MOVIES_GENRE,
                 MoviesEntry.COLUMN_MOVIES_SUMMARY};
 
         return new CursorLoader(this,   // Parent activity context

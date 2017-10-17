@@ -81,7 +81,7 @@ public class MoviesProvider extends ContentProvider {
             throw new IllegalArgumentException("Movies requires a name");
         }
 
-        Integer gender = values.getAsInteger(MoviesEntry.COLUMN_MOVIES_GENDER);
+        Integer gender = values.getAsInteger(MoviesEntry.COLUMN_MOVIES_GENRE);
         if (gender == null || !MoviesEntry.isValidGender(gender)) {
             throw new IllegalArgumentException("Movies requires valid gender");
         }
@@ -134,8 +134,8 @@ public class MoviesProvider extends ContentProvider {
             }
         }
 
-        if (values.containsKey(MoviesEntry.COLUMN_MOVIES_GENDER)) {
-            Integer gender = values.getAsInteger(MoviesEntry.COLUMN_MOVIES_GENDER);
+        if (values.containsKey(MoviesEntry.COLUMN_MOVIES_GENRE)) {
+            Integer gender = values.getAsInteger(MoviesEntry.COLUMN_MOVIES_GENRE);
             if (gender == null || !MoviesEntry.isValidGender(gender)) {
                 throw new IllegalArgumentException("Movies requires valid gender");
             }
