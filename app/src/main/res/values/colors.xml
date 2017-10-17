@@ -10,4 +10,6 @@
     <color name="editorColorPrimary">#2D3640</color>
 
     <color name="editorColorPrimaryDark">#394450</color>
+
+    <color name="black">#000000</color>
 </resources>

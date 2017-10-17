@@ -57,7 +57,7 @@ public class CatalogActivity extends AppCompatActivity implements
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
                 Intent intent = new Intent(CatalogActivity.this, EditorActivity.class);
-            Uri currentMoviesUri = ContentUris.withAppendedId(MoviesEntry.CONTENT_URI, id);
+                Uri currentMoviesUri = ContentUris.withAppendedId(MoviesEntry.CONTENT_URI, id);
 
                 intent.setData(currentMoviesUri);
 
@@ -126,7 +126,8 @@ public class CatalogActivity extends AppCompatActivity implements
         String[] projection = {
                 MoviesEntry._ID,
                 MoviesEntry.COLUMN_MOVIES_NAME,
-                MoviesEntry.COLUMN_MOVIES_GENDER};
+                MoviesEntry.COLUMN_MOVIES_GENDER,
+                MoviesEntry.COLUMN_MOVIES_SUMMARY};
 
         return new CursorLoader(this,   // Parent activity context
                 MoviesEntry.CONTENT_URI,   // Provider content URI to query

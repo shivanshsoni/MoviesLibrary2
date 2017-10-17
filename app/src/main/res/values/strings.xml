@@ -57,4 +57,5 @@
     <string name="gender_thriller">Thriller</string>
     <string name="gender_urban">Urban</string>
     <string name="gender_western">Western</string>
+  <string name="summary_txt">Summary</string>
 </resources>
