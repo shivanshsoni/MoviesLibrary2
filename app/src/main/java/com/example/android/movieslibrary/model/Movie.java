@@ -7,12 +7,12 @@ package com.example.android.movieslibrary.model;
 public class Movie {
 
 	private String name;
-	private Integer gender;
+	private Integer genre;
 	private Integer rating;
 
-	public Movie(String name, Integer gender, Integer rating) {
+	public Movie(String name, Integer genre, Integer rating) {
 		this.name = name;
-		this.gender = gender;
+		this.genre = genre;
 		this.rating = rating;
 	}
 
@@ -24,12 +24,12 @@ public class Movie {
 		this.name = name;
 	}
 
-	public Integer getGender() {
-		return gender;
+	public Integer getGenre() {
+		return genre;
 	}
 
-	public void setGender(Integer gender) {
-		this.gender = gender;
+	public void setGenre(Integer genre) {
+		this.genre = genre;
 	}
 
 	public Integer getRating() {

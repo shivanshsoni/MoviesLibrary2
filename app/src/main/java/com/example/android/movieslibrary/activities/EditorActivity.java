@@ -47,7 +47,7 @@ public class EditorActivity extends AppCompatActivity implements
     private boolean editable = false;
 
 
-    private int mGender = MoviesEntry.GENRE_ACTION;
+    private int mGenre = MoviesEntry.GENRE_ACTION;
     private int mRating = MoviesEntry.RATING_UNKNOWN;
 
     private boolean mMoviesHasChanged = false;
@@ -98,12 +98,12 @@ public class EditorActivity extends AppCompatActivity implements
     }
 
     private void setupSpinner() {
-        ArrayAdapter genderSpinnerAdapter = ArrayAdapter.createFromResource(this,
+        ArrayAdapter genreSpinnerAdapter = ArrayAdapter.createFromResource(this,
                 R.array.array_genre_options, android.R.layout.simple_spinner_item);
 
-        genderSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
+        genreSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
 
-        mGenreSpinner.setAdapter(genderSpinnerAdapter);
+        mGenreSpinner.setAdapter(genreSpinnerAdapter);
 
         mGenreSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -111,15 +111,15 @@ public class EditorActivity extends AppCompatActivity implements
 
                 String selection = (String) parent.getItemAtPosition(position);
                 if (!TextUtils.isEmpty(selection)) {
-                    mGender = position;
+                    mGenre = position;
                 } else {
-                    mGender = MoviesEntry.GENRE_UNKNOWN;
+                    mGenre = MoviesEntry.GENRE_UNKNOWN;
                 }
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                mGender = MoviesEntry.GENRE_UNKNOWN;
+                mGenre = MoviesEntry.GENRE_UNKNOWN;
             }
         });
 
@@ -137,13 +137,13 @@ public class EditorActivity extends AppCompatActivity implements
 
 
         if (mCurrentMoviesUri == null &&
-                TextUtils.isEmpty(nameString) && TextUtils.isEmpty(summaryString) && mGender == MoviesEntry.GENRE_UNKNOWN) {
+                TextUtils.isEmpty(nameString) && TextUtils.isEmpty(summaryString) && mGenre == MoviesEntry.GENRE_UNKNOWN) {
             return;
         }
 
         ContentValues values = new ContentValues();
         values.put(MoviesEntry.COLUMN_MOVIES_NAME, nameString);
-        values.put(MoviesEntry.COLUMN_MOVIES_GENRE, mGender);
+        values.put(MoviesEntry.COLUMN_MOVIES_GENRE, mGenre);
         values.put(MoviesEntry.COLUMN_MOVIES_RATING, mRating);
         values.put(MoviesEntry.COLUMN_MOVIES_SUMMARY, summaryString);
 
@@ -266,7 +266,7 @@ public class EditorActivity extends AppCompatActivity implements
         if (cursor.moveToFirst()) {
             int nameColumnIndex = cursor.getColumnIndex(MoviesEntry.COLUMN_MOVIES_NAME);
 
-            int genderColumnIndex = cursor.getColumnIndex(MoviesEntry.COLUMN_MOVIES_GENRE);
+            int genreColumnIndex = cursor.getColumnIndex(MoviesEntry.COLUMN_MOVIES_GENRE);
 
             int ratingColumIndex = cursor.getColumnIndex(MoviesEntry.COLUMN_MOVIES_RATING);
 
@@ -274,7 +274,7 @@ public class EditorActivity extends AppCompatActivity implements
 
             String name = cursor.getString(nameColumnIndex);
 
-            int gender = cursor.getInt(genderColumnIndex);
+            int genre = cursor.getInt(genreColumnIndex);
 
             int rating = cursor.getInt(ratingColumIndex);
 
@@ -286,7 +286,7 @@ public class EditorActivity extends AppCompatActivity implements
 
             mNameEditText.getEditText().setText(name);
 
-            mGenreSpinner.setSelection(gender);
+            mGenreSpinner.setSelection(genre);
         }
     }
 
@@ -294,7 +294,7 @@ public class EditorActivity extends AppCompatActivity implements
     public void onLoaderReset(Loader<Cursor> loader) {
         mNameEditText.getEditText().setText("");
         mMovieSummary.getEditText().setText("");
-        mGenreSpinner.setSelection(0); // Select "Unknown" gender
+        mGenreSpinner.setSelection(0); // Select "Unknown" genre
     }
 
     private void showUnsavedChangesDialog(

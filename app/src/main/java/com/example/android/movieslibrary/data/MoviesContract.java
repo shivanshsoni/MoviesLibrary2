@@ -34,7 +34,7 @@ public final class MoviesContract {
 
         public final static String COLUMN_MOVIES_NAME = "name";
 
-        public final static String COLUMN_MOVIES_GENRE = "gender";
+        public final static String COLUMN_MOVIES_GENRE = "genre";
 
         public final static String COLUMN_MOVIES_RATING = "rating";
 
@@ -67,7 +67,7 @@ public final class MoviesContract {
         public static final int GENRE_URBAN = 25;
         public static final int GENRE_WESTERN = 26;
 
-        public static List<Integer> GenderList() {
+        public static List<Integer> GenreList() {
             return Arrays.asList(
                     GENRE_UNKNOWN,
                     GENRE_ACTION,
@@ -104,8 +104,8 @@ public final class MoviesContract {
         public static final int RATING_VERY_GOOD = 4;
         public static final int RATING_GREAT = 5;
 
-        public static boolean isValidGender(int gender) {
-            return gender >= 0 && gender <= GenderList().size();
+        public static boolean isValidGenre(int genre) {
+            return genre >= 0 && genre <= GenreList().size();
         }
 
         public static boolean isValigRating(int rating) {
