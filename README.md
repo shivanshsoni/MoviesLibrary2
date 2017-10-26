@@ -1,5 +1,8 @@
 # MoviesLibrary2 #
-MoviesLibrary2 is an Android application that allows users to create a movie watch list. Users can easily add, edit and delete movies from their watch list.
+
+- MoviesLibrary2 is an Android application that allows users to create a movie watch list. 
+
+- Users can easily add, edit and delete movies from their watch list.
 
 #### 1) Opening the application ####
 Once the application is installed select the MoviesLibrary2 from your application list.   
