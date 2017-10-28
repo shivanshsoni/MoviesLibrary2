@@ -6,9 +6,9 @@
 
 #### 1) Opening the application ####
 Once the application is installed select the MoviesLibrary2 from your application list.   
-<div style="width:200px;height:auto%;overflow:hidden;">
-    <img src="app/documentation/examples/open.png" title="Opening the App" width="200px" height="auto">
-</div>
+
+<img src="app/documentation/examples/open.png" title="Opening the App" width="200px" height="auto">
+
 
 #### 2) Adding a movie to your watch list ####
 To add a movie to your watch list click the add icon.  
