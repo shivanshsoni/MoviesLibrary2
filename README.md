@@ -11,7 +11,7 @@ Once the application is installed select the MoviesLibrary2 from your applicatio
 
 
 #### 2) Adding a movie to your watch list ####
-To add a movie to your watch list click the add icon.  
+ Feeling Bored!! Want to watch out a movie then,to add a movie to your watch list click the add icon.  
 <img title="Adding a movie" src="app/documentation/examples/welcome.png" width="200px" height="auto">  
 
 
@@ -19,11 +19,11 @@ Type in the name of the movie and select a category from the list.
 <img title="Assigning movie details" src="app/documentation/examples/create.png" width="200px" height="auto">
 
 
-Select the checkmark to save the movie to your list.  
+click on the checkmark to save the movie to your list.  
 <img title="Saving a movie" src="app/documentation/examples/save.png" width="200px" height="auto">
 
 
-After you have added the movie you will be returned to the home screen(your movie list).  
+After you have added the movie you will be returned to the home screen(preferences containing your movie lists).  
 <img title="The move list" src="app/documentation/examples/list.png" width="200px" height="auto">
 
 #### 3) Editing and deleting movies ####
